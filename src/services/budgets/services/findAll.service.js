@@ -1,7 +1,6 @@
 import Budget from "../model/budget.schema.js";
 
 export async function findAllBudgets({ search, sort, skip, limit, id }) {
-  console.log({ search, sort, skip, limit });
 
   let searchParams = {};
   let sortOptions = { createdAt: -1 };
@@ -18,7 +17,6 @@ export async function findAllBudgets({ search, sort, skip, limit, id }) {
     };
   }
 
-  console.log({ sortOptions });
 
   const userData = await Budget.aggregate([
     {

@@ -1,9 +1,6 @@
 import Category from "../model/category.schema.js";
 
 export async function findAllCategories({ month, id }) {
-  // console.log({ search, sort, skip, limit });
-
-  console.log({ service: month });
 
   const userData = await Category.aggregate([
     {

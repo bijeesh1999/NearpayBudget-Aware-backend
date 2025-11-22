@@ -6,8 +6,6 @@ export async function findAllBudget(req, res) {
     const { month } = req.query
     const user = req.user;
 
-    console.log({ query:month });
-
     const getAlluserData = await findAllBudgets({body,id:user?.id});
 
     return res.status(200).json({

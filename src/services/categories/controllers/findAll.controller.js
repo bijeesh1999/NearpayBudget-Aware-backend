@@ -6,8 +6,6 @@ export async function findCategory(req, res) {
   const { month } = req.query;
   const id = req.user?._id;
 
-  console.log({ user: req.user });
-
   const getAlluserData = await findAllCategories({ month, id });
 
   return res.status(200).json({

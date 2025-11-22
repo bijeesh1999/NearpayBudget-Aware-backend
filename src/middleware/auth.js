@@ -5,10 +5,7 @@ import { findUserById } from "../services/users/services/find.service.js";
 export const authMiddleware = async (req, res, next) => {
   // try {
   const TOKEN =
-    req.cookies.USER_TOKEN || req.headers.authorization?.split(" ")[1];
-
-    console.log({TOKEN});
-    
+    req.cookies.USER_TOKEN || req.headers.authorization?.split(" ")[1];    
 
   if (!TOKEN) {
     return res.status(403).json({

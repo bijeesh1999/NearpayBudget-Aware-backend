@@ -14,8 +14,6 @@ export const findUserByEmail = async ({ email }) => {
 export async function findUserById({ id }) {
   const user = await userSchema
 
-  console.log({ id });
-
 
   const userData = await user.findOne({ _id: id })
 

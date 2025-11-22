@@ -31,7 +31,6 @@ export const loginUser = async (req, res) => {
     // 5. If login is successful, generate a JWT token.
 
     const authToken = await generateToken({ id: user?._id, email: user.email });
-    console.log({ authToken });
 
     if (authToken) {
       res.cookie("USER_TOKEN", authToken, {
