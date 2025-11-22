@@ -34,11 +34,13 @@ export const loginUser = async (req, res) => {
 
     if (authToken) {
       res.cookie("USER_TOKEN", authToken, {
-        httpOnly: true, // Prevents client-side JS from accessing the cookie (XSS protection)
-        secure: process.env.NODE_ENV === "local", // Use secure cookies in production
-        maxAge: 3600000, // Cookie expiration time (e.g., 1 hour)
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // TRUE in prod
+        sameSite: "none", // required for cross-domain cookies on HTTPS
+        maxAge: 3600000,
       });
     }
+
     // 6. Return the token and the user data (without sensitive fields).
     return res.status(200).json({
       user: user.toJSON(),

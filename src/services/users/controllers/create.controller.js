@@ -27,11 +27,14 @@ export const userSignUp = async (req, res) => {
       email: newUser?.email,
     });
 
-    res.cookie("USER_TOKEN", authToken, {
-      httpOnly: true, // Prevents client-side JS from accessing the cookie (XSS protection)
-      secure: process.env.NODE_ENV === "local", // Use secure cookies in production
-      maxAge: 3600000, // Cookie expiration time (e.g., 1 hour)
-    });
+    if (authToken) {
+      res.cookie("USER_TOKEN", authToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // TRUE in prod
+        sameSite: "none", // required for cross-domain cookies on HTTPS
+        maxAge: 3600000,
+      });
+    }
 
     // Respond with a success message and the newly created user data
     return res.status(201).json({
