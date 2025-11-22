@@ -16,7 +16,7 @@ app.use(
     credentials: true, // Allow credentials
   })
 );
-app.use(ipFilter);
+// app.use(ipFilter);
 connectMongoo();
 
 app.use("/api", globalApiRoute);
