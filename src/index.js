@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectMongoo } from "./config/db.config.js";
 import globalApiRoute from "./app.js";
 import cookieParser from "cookie-parser";
+import { ipFilter } from "./config/ip.js";
 
 dotenv.config();
 const app = express();
@@ -15,6 +16,7 @@ app.use(
     credentials: true, // Allow credentials
   })
 );
+app.use(ipFilter);
 connectMongoo();
 
 app.use("/api", globalApiRoute);
