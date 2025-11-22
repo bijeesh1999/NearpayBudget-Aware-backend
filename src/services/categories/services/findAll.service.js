@@ -15,7 +15,10 @@ export async function findAllCategories({ month, id }) {
     {
       $lookup: {
         from: "budgets",
-        let: { categoryId: "$_id", currentMonth: month },
+        let: {
+          categoryId: "$_id",
+          currentMonth: month && month !== "undefined" ? month : null,
+        },
         pipeline: [
           {
             $match: {
@@ -25,7 +28,14 @@ export async function findAllCategories({ month, id }) {
                     $eq: ["$categoryId", "$$categoryId"],
                   },
                   {
-                    $eq: ["$month", "$$currentMonth"],
+                    $cond: {
+                      // IF $$currentMonth is null/undefined (not provided)
+                      if: { $ifNull: ["$$currentMonth", false] },
+                      // THEN: Check if $month == $$currentMonth
+                      then: { $eq: ["$month", "$$currentMonth"] },
+                      // ELSE: Return true (always match, effectively disabling the month filter)
+                      else: true,
+                    },
                   },
                 ],
               },
