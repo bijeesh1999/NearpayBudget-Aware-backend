@@ -1,47 +1,44 @@
 import { verifyToken } from "../config/token.js";
-import mongoose from "mongoose";
 import { findUserById } from "../services/users/services/find.service.js";
 
 export const authMiddleware = async (req, res, next) => {
-  // try {
-  const TOKEN =
-    req.cookies.USER_TOKEN || req.headers.authorization?.split(" ")[1];    
+  try {
+    const TOKEN =
+      req.cookies.USER_TOKEN || req.headers.authorization?.split(" ")[1];
 
-  if (!TOKEN) {
-    return res.status(403).json({
-      message: "Authentication failed: No token provided.",
-    });
-  }
+    if (!TOKEN) {
+      return res.status(403).json({
+        message: "Authentication failed: No token provided.",
+      });
+    }
 
-  // 1. First, verify the token to ensure it's valid and not expired.
-  const decodedPayload = verifyToken(TOKEN);
+    // 1. First, verify the token to ensure it's valid and not expired.
+    const decodedPayload = verifyToken(TOKEN);
 
-  if (!decodedPayload) {
+    if (!decodedPayload) {
+      return res
+        .status(401)
+        .json({ message: "Authentication failed: Invalid or expired token." });
+    }
+
+    // 2. Use the user ID from the decoded token to find the user in the database.
+    const user = await findUserById({ id: decodedPayload.id });
+
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "Authentication failed: User not found." });
+    }
+
+    // 3. Attach the user object to the request for subsequent middleware/route handlers.
+    req.user = user;
+
+    // 4. Proceed to the next middleware or route handler.
+    next();
+  } catch (error) {
+    console.error("Authentication failed:", error.message);
     return res
       .status(401)
-      .json({ message: "Authentication failed: Invalid or expired token." });
+      .json({ message: "Authentication failed: Unauthorized." });
   }
-
-  // 2. Use the user ID from the decoded token to find the user in the database.
-  const user = await findUserById(
-    { id: decodedPayload.id }
-  );
-
-  if (!user) {
-    return res
-      .status(401)
-      .json({ message: "Authentication failed: User not found." });
-  }
-
-  // 3. Attach the user object to the request for subsequent middleware/route handlers.
-  req.user = user;
-
-  // 4. Proceed to the next middleware or route handler.
-  next();
-  //   } catch (error) {
-  //     console.error("Authentication failed:", error.message);
-  //     return res
-  //       .status(401)
-  //       .json({ message: "Authentication failed: Unauthorized." });
-  //   }
 };
