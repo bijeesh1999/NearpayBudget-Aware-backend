@@ -6,7 +6,7 @@ export async function findAllCategories({ month, id }) {
     {
       $match: {
         isDeleted: false,
-        userId: id,
+        // userId: id,
       },
     },
     {

@@ -11,7 +11,7 @@ const router = Router()
 
 
 router.use("/user", userRouter)
-router.use("/category", authMiddleware, categoryRouter)
+router.use("/category", categoryRouter)
 router.use("/budget", authMiddleware, budgetRouter)
 router.use("/expense", authMiddleware, expenseRouter)
 
