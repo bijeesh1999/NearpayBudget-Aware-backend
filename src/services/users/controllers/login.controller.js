@@ -38,6 +38,7 @@ export const loginUser = async (req, res) => {
         secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 3600000, // 1 hour
+        path: "/", // Ensure path is root
       });
     }
 

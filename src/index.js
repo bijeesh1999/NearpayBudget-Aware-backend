@@ -8,6 +8,8 @@ import { ipFilter } from "./config/ip.js";
 
 dotenv.config();
 const app = express();
+
+app.set('trust proxy', 1); // Use 1 if you know Render uses one proxy level
 app.use(express.json());
 app.use(cookieParser());
 app.use(
