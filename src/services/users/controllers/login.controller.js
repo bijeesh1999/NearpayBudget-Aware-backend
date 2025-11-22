@@ -35,8 +35,8 @@ export const loginUser = async (req, res) => {
     if (authToken) {
       res.cookie("USER_TOKEN", authToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        secure: true,
+        sameSite: "none",
         maxAge: 3600000, // 1 hour
         path: "/", // Ensure path is root
       });

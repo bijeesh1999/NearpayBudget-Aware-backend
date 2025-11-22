@@ -30,9 +30,10 @@ export const userSignUp = async (req, res) => {
     if (authToken) {
       res.cookie("USER_TOKEN", authToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // TRUE in prod
-        sameSite: "none", // required for cross-domain cookies on HTTPS
-        maxAge: 3600000,
+        secure: true,
+        sameSite: "none",
+        maxAge: 3600000, // 1 hour
+        path: "/", // Ensure path is root
       });
     }
 
