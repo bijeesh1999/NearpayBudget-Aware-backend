@@ -1,7 +1,7 @@
 import { findAllCategories } from "../services/findAll.service.js";
 
 export async function findCategory(req, res) {
-  // try {
+  try {
   const body = req.body;
   const { month } = req.query;
   const id = req.user?._id;
@@ -14,10 +14,10 @@ export async function findCategory(req, res) {
     data: getAlluserData || [],
     message: "user fetch success",
   });
-  // } catch (error) {
-  //   res.status(400).json({
-  //     message: "data fetch failed",
-  //     error: error,
-  //   });
-  // }
+  } catch (error) {
+    res.status(400).json({
+      message: "data fetch failed",
+      error: error,
+    });
+  }
 }
