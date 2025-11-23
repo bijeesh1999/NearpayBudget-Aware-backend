@@ -6,13 +6,12 @@ export const authMiddleware = async (req, res, next) => {
     const TOKEN = req.cookies.USER_TOKEN;
 
     if (!TOKEN) {
-      return res.status(403).json({
+      return res.status(401).json({
         message: "Authentication failed: No token provided.",
       });
     }
 
-    console.log({TOKEN});
-    
+    console.log({ TOKEN });
 
     // 1. First, verify the token to ensure it's valid and not expired.
     const decodedPayload = verifyToken(TOKEN);
