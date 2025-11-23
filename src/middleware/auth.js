@@ -3,8 +3,7 @@ import { findUserById } from "../services/users/services/find.service.js";
 
 export const authMiddleware = async (req, res, next) => {
   try {
-    const TOKEN =
-      req.cookies.USER_TOKEN || req.headers.authorization?.split(" ")[1];
+    const TOKEN = req.cookies.USER_TOKEN;
 
     if (!TOKEN) {
       return res.status(403).json({
