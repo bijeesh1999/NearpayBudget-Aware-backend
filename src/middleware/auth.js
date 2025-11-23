@@ -10,9 +10,6 @@ export const authMiddleware = async (req, res, next) => {
         message: "Authentication failed: No token provided.",
       });
     }
-
-    console.log({ TOKEN });
-
     // 1. First, verify the token to ensure it's valid and not expired.
     const decodedPayload = verifyToken(TOKEN);
 

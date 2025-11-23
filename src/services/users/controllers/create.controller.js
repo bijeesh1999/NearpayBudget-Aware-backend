@@ -31,9 +31,8 @@ export const userSignUp = async (req, res) => {
       res.cookie("USER_TOKEN", authToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "none",
-        maxAge: 3600000, // 1 hour
-        path: "/", // Ensure path is root
+        sameSite: "None",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
       });
     }
 

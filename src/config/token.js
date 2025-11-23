@@ -7,7 +7,7 @@ export const jwtSecret =
 
 // Function to generate a JWT token
 export const generateToken = (payload) => {
-  return jwt.sign(payload, jwtSecret, { expiresIn: "1h" });
+  return jwt.sign(payload, jwtSecret, {  expiresIn: "7d" });
 };
 
 // Function to verify a JWT token
