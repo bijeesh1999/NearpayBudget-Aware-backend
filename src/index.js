@@ -14,7 +14,11 @@ app.use(cookieParser());
 const FRONTEND_ORIGIN = process.env.FRONTEND_URL || "http://localhost:3000";
 app.use(
   cors({
-    origin: FRONTEND_ORIGIN,
+    origin: [
+      "https://nearpay-budget-aware-frontend-7w0kfhs0g-bijeesh1999s-projects.vercel.app",
+      "https://nearpay-budget-aware-frontend.vercel.app",
+      "http://localhost:3000"
+    ],
     credentials: true,
   })
 );
